@@ -4,7 +4,7 @@ L.tileLayer('https://cdn.lima-labs.com/{z}/{x}/{y}.png?api=demo', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-let kmlLayer = new L.KML("/kml/geo.kml", {
+let kmlLayer = new L.KML("./kml/geo.kml", {
     async: true,
 });
                                                                   
@@ -25,9 +25,9 @@ let LeafIcon = L.Icon.extend({
 });
 
 
-let redIcon = new LeafIcon({iconUrl: '/images/red.svg'});
-let greenIcon = new LeafIcon({iconUrl: '/images/green.svg'});
-let trIcon = new LeafIcon({iconUrl: '/images/transparent.svg'})
+let redIcon = new LeafIcon({iconUrl: './images/red.svg'});
+let greenIcon = new LeafIcon({iconUrl: './images/green.svg'});
+let trIcon = new LeafIcon({iconUrl: './images/transparent.svg'})
 
 
 let palenga = L.marker(
