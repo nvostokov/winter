@@ -1740,7 +1740,7 @@ a[href^="tel"] {
 #map {
     height: 400px;
     font-size: 14px;
-    margin-top: 94px;
+    /*margin-top: 94px;*/
 }
 .sticky {
     position: -webkit-sticky;
