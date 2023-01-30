@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Архангельская область, Мезенский, Лешуконский, Пинежский, Холмогорский, содержание дорог Архангельска">
+    <meta name="description" content="АО Мезенское дорожное управление - содержание и ремонт автомобильных дорог Архангельской области и г. Архангельска">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter</title>
+    <link rel="stylesheet" href="fonts/stylesheet.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header__container _container">
+                <a href="/" class="header__logo"><img src="/images/logo.svg" alt=""></a>
+                <a href="/" class="header__burger-logo"><img src="/images/logo_without.svg" alt=""></a>
+                <div class="header__menu menu">
+                    <div class="menu__icon">
+                        <span></span>
+                    </div>
+                    <nav class="menu__body">
+                        <ul class="menu__list">
+                            <li><a href="/news/" class="btn menu__link menu__news">Новости</a></li>
+                            <li>
+                                <a href="/crossings/" class="btn menu__link menu__link-crossings menu__crossings">Переправы</a>
+                                <span onclick="" class="menu__arrow"></span>
+                                <ul class="menu__sub-list">
+                                    <li>
+                                        <a href="/summer/" class="btn menu__sub-link">Летние переправы</a>
+                                    </li>
+                                    <li>
+                                        <a href="/winter/" class="btn menu__sub-link">Зимние переправы</a>
+                                    </li>
+                                </ul>
+				                <ul class="menu__sublist-burger">
+                                    <li>
+                                        <a href="/summer/" class="menu__sublink-burger">Летние переправы</a>
+                                    </li>
+                                    <li>
+                                        <a href="/winter/" class="menu__sublink-burger">Зимние переправы</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/company/" class="btn menu__link menu__company">О компании</a>
+                                <ul class="menu__sub-list">
+                                    <li>
+                                        <a href="/vacancy/" class="btn menu__sub-link menu__vacancy">Вакансии</a>
+                                    </li>
+                                    <li>
+                                        <a href="/management/" class="btn menu__sub-link menu__management">Руководство</a>
+                                    </li>
+                                    <li>
+                                        <a href="/contacts/" class="btn menu__sub-link menu__contacts">Контакты</a>
+                                    </li>
+                                </ul>
+				                <ul class="menu__sublist-burger">
+                                    <li>
+                                        <a href="/vacancy/" class="menu__sublink-burger menu__vacancy">Вакансии</a>
+                                    </li>
+                                    <li>
+                                        <a href="/management/" class="menu__sublink-burger menu__management">Руководство</a>
+                                    </li>
+                                    <li>
+                                        <a href="/contacts/" class="menu__sublink-burger menu__contacts">Контакты</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="/projects/" class="btn menu__link menu__projects">Проекты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="sticky">
+            <div id="map" class="map">
+        
+            </div>
+        </div>
+        <main class="page">
+            <div class="page__container _container">
+                <div class="crossings" id="app">
+                    <div class="ice__title">
+                        По состоянию на 
+                        <script>
+                            var d = new Date();
+                            var month=new Array("января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря");
+                            document.write(d.getDate()+ " " + month[d.getMonth()]+ " " + d.getFullYear() + " г.");
+                        </script>
+                    </div>
+                    <div class="ice__label">
+                        <div class="ice__open">
+                            <img src="/images/green.svg" alt="">
+                            <p>- переправа открыта</p>
+                        </div>
+                        <div class="ice__close">
+                            <img src="/images/red.svg" alt="">
+                            <p>- переправа закрыта</p>
+                        </div>
+                    </div>
+                    <div class="ice__uchastok bpu">
+                        <div class="ice__pu">
+                            Белогорский производственный участок
+                        </div>
+                        <div class="ice__wrapper">
+                            <div class="ice__row ice__row-head">
+                                <div class="ice__road road-title">
+                                    Автомобильная дорога
+                                </div>
+                                <div class="ice__river">
+                                    Река
+                                </div>
+                                <div class="ice__km">
+                                    Км
+                                </div>
+                                <div class="ice__status">
+                                    Статус
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.161122, 42.297571], 'А/д ст.Паленьга - Светлый, р. Пинега')">
+                                <div class="ice__road">
+                                    <img v-if="paleng > 0" src="/images/green.svg" alt="">
+                                    <img v-else src="/images/red.svg" alt="">
+                                    <p>ст.Паленьга-Светлый</p>
+                                </div>
+                                <div class="ice__river">
+                                    Пинега
+                                </div>
+                                <div class="ice__km">
+                                    2
+                                </div>
+                                <div class="ice__status" v-if="paleng > 0">
+                                    {{ paleng }} <span v-if="paleng <= 4">тонны</span>
+                                    <span v-else>тонн</span>
+                                </div>
+                                <div class="ice__status" v-else>
+                                    Закрыто
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ice__uchastok mpu">
+                        <div class="ice__pu">
+                            Мезенский производственный участок
+                        </div>
+                        <div class="ice__wrapper">
+                        <div class="ice__row ice__row-head">
+                            <div class="ice__road road-title">
+                            Автомобильная дорога
+                            </div>
+                            <div class="ice__river">
+                            Река
+                            </div>
+                            <div class="ice__km">
+                            Км
+                            </div>
+                            <div class="ice__status">
+                            Статус
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.591189, 44.619157], 'А/д Архангельск-Белогорский-Пинега-Кимжа-Мезень, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img v-if="mezGl > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                                <p>Архангельск-Белогорский-Пинега-Кимжа-Мезень</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                343
+                            </div>
+                            <div class="ice__status" v-if="mezGl > 0">
+                                {{ mezGl }} <span v-if="mezGl <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.624215, 44.607320], 'А/д Архангельск-Белогорский-Пинега-Кимжа-Мезень, р. Пёза, открыто')">
+                            <div class="ice__road">
+                                <img v-if="pez > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                            <p>Архангельск-Белогорский-Пинега-Кимжа-Мезень</p>
+                            </div>
+                            <div class="ice__river">
+                                Пёза
+                            </div>
+                            <div class="ice__km">
+                                351
+                            </div>
+                            <div class="ice__status" v-if="pez > 0">
+                                {{ pez }} <span v-if="pez <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.828404, 44.197913], 'А/д Мезень - Каменка - Долгощелье, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img v-if="mezKam > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                            <p>Мезень-Каменка-Долгощелье</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                1
+                            </div>
+                            <div class="ice__status" v-if="mezKam > 0">
+                                {{ mezKam }} <span v-if="mezKam <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.661164, 44.774100], 'А/д Развилка-Бычье, р. Няфта, открыто')">
+                            <div class="ice__road">
+                                <img v-if="mezRazv > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                            <p>Развилка-Бычье</p>
+                            </div>
+                            <div class="ice__river">
+                                Няфта
+                            </div>
+                            <div class="ice__km">
+                                7
+                            </div>
+                            <div class="ice__status" v-if="mezRazv> 0">
+                                {{ mezRazv }} <span v-if="mezRazv <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                        </a>
+                        <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.782181, 45.034288], 'А/д Развилка-Бычье, п. Пёза, открыто')">
+                            <div class="ice__road">
+                                <img v-if="mezRazv2 > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                            <p>Развилка-Бычье</p>
+                            </div>
+                            <div class="ice__river">
+                                п. Пёза
+                            </div>
+                            <div class="ice__km">
+                                28
+                            </div>
+                            <div class="ice__status" v-if="mezRazv2 > 0">
+                                {{ mezRazv2 }} <span v-if="mezRazv2 <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="ice__uchastok kpu">
+                        <div class="ice__pu">
+                            Карпогорский производственный участок
+                        </div>
+                        <div class="ice__wrapper">
+                            <div class="ice__row ice__row-head">
+                                <div class="ice__road road-title">
+                                    Автомобильная дорога
+                                </div>
+                                <div class="ice__river">
+                                    Река
+                                </div>
+                                <div class="ice__km">
+                                    Км
+                                </div>
+                                <div class="ice__status">
+                                    Статус
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.029511, 44.111923], 'А/д п.Ясный-подъезд к а/д Карпогоры-Веегора-Лешуконское, р. Пинега, Открыто')">
+                                <div class="ice__road">
+                                    <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                    <p>п.Ясный-подъезд к а/д КВЛ</p>
+                                </div>
+                                <div class="ice__river">
+                                    Пинега
+                                </div>
+                                <div class="ice__km">
+                                    1
+                                </div>
+                                <div class="ice__status">
+                                    40 тонн
+                                </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([63.991281, 44.350056], 'А/д Шотова - Рыбзавод, р. Пинега, Открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Шотова - Рыбзавод</p>
+                            </div>
+                            <div class="ice__river">
+                                Пинега
+                            </div>
+                            <div class="ice__km">
+                                2
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.220137, 44.227682], 'А/д Пинега-Чакола-Пиринемь, р. Пинега, Открыто')">
+                            <div class="ice__road">
+                            <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                            <p>Пинега-Чакола-Пиринемь</p>
+                            </div>
+                            <div class="ice__river">
+                            Пинега
+                            </div>
+                            <div class="ice__km">
+                            89
+                            </div>
+                            <div class="ice__status">
+                            25 тонн
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ice__uchastok ppu">
+                        <div class="ice__pu">
+                            Пинежский производственный участок
+                        </div>
+                        <div class="ice__wrapper">
+                            <div class="ice__row ice__row-head">
+                            <div class="ice__road road-title">
+                                Автомобильная дорога
+                            </div>
+                            <div class="ice__river">
+                                Река
+                            </div>
+                            <div class="ice__km">
+                                Км
+                            </div>
+                            <div class="ice__status">
+                                Статус
+                            </div>
+                            </div>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.713112, 43.52026], 'А/д Пинега-Чакола-Пиринемь, р. Пинега')">
+                            <div class="ice__road">
+                                <img v-if="pineg > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                                <p>Пинега-Чакола-Пиринемь</p>
+                            </div>
+                            <div class="ice__river">
+                                Пинега
+                            </div>
+                            <div class="ice__km">
+                                1
+                            </div>
+                            <div class="ice__status" v-if="pineg > 0">
+                                {{ pineg }} <span v-if="pineg <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.544512, 43.939191], 'А/д Пинега-Чакола-Пиринемь, р. Пинега, открыто')">
+                            <div class="ice__road">
+                                <img v-if="poch > 0" src="/images/green.svg" alt="">
+                                <img v-else src="/images/red.svg" alt="">
+                                <p>Пинега-Чакола-Пиринемь</p>
+                            </div>
+                            <div class="ice__river">
+                                Поча
+                            </div>
+                            <div class="ice__km">
+                                34
+                            </div>
+                            <div class="ice__status" v-if="poch > 0">
+                                {{ poch }} <span v-if="poch <= 4">тонны</span>
+                                <span v-else>тонн</span>
+                            </div>
+                            <div class="ice__status" v-else>
+                                Закрыто
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ice__uchastok lpu">
+                        <div class="ice__pu">
+                            Лешуконский производственный участок
+                        </div>
+                        <div class="ice__wrapper">
+                            <div class="ice__row ice__row-head">
+                            <div class="ice__road road-title">
+                                Автомобильная дорога
+                            </div>
+                            <div class="ice__river">
+                                Река
+                            </div>
+                            <div class="ice__km">
+                                Км
+                            </div>
+                            <div class="ice__status">
+                                Статус
+                            </div>
+                            </div>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.921430, 45.686322], 'А/д Подъезд к понт.переправе через р.Мезень, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Подъезд к понт.переправе через р.Мезень (р.Мельничный)</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                1
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.902496, 45.787128], 'А/д Лешуконское - Олема - Кеба, р. Вашка, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Олема-Кеба</p>
+                            </div>
+                            <div class="ice__river">
+                                Вашка
+                            </div>
+                            <div class="ice__km">
+                                0
+                            </div>
+                            <div class="ice__status">
+                                20 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.610565, 46.075832], 'А/д Лешуконское - Олема - Кеба, р. Вашка, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Олема-Кеба</p>
+                            </div>
+                            <div class="ice__river">
+                                Вашка
+                            </div>
+                            <div class="ice__km">
+                                44
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.993264, 46.003790], 'А/д Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга, р. Пылема, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга</p>
+                            </div>
+                            <div class="ice__river">
+                                Пылема
+                            </div>
+                            <div class="ice__km">
+                                16
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([65.007676, 46.126537], 'А/д Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга, р. Ираса, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга</p>
+                            </div>
+                            <div class="ice__river">
+                                Ираса
+                            </div>
+                            <div class="ice__km">
+                                22
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.954722, 46.415513], 'А/д Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга, р. Цебьюга, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга</p>
+                            </div>
+                            <div class="ice__river">
+                                Цебьюга
+                            </div>
+                            <div class="ice__km">
+                                41
+                            </div>
+                            <div class="ice__status">
+                                10 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.833919, 47.498884], 'А/д Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                106
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.542024, 48.003236], 'А/д Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга, руч. Выбор, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Лешуконское-Койнас-Усть-Низемье-Зубово Латьюга</p>
+                            </div>
+                            <div class="ice__river">
+                                Выбор
+                            </div>
+                            <div class="ice__km">
+                                152
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.934973, 45.607621], 'А/д Ущелье - Б. Нисогора, р. Ёжуга, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Ущелье - Б. Нисогора</p>
+                            </div>
+                            <div class="ice__river">
+                                Ёжуга
+                            </div>
+                            <div class="ice__km">
+                                2
+                            </div>
+                            <div class="ice__status">
+                                20 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.644088, 47.854013], 'А/д Подъезд к д. Кысса, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Подъезд к д.Кысса</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                0
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.667425, 47.803456], 'А/д Подъезд к д. Засулье, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Подъезд к д. Засулье</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                0
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.510809, 48.536664], 'А/д Вожгора-Родома, р. М. Пижма, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Вожгора-Родома</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                3
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                            <a href="javascript:void(0)" class="ice__row" onclick="markerMitTr([64.507169, 48.486107], 'А/д Зубово-Вожгора-Лебское, р. Мезень, открыто')">
+                            <div class="ice__road">
+                                <img src="/wp-content/themes/mdu/assets/images/green.svg" alt="">
+                                <p>Зубово-Вожгора-Лебское</p>
+                            </div>
+                            <div class="ice__river">
+                                Мезень
+                            </div>
+                            <div class="ice__km">
+                                1
+                            </div>
+                            <div class="ice__status">
+                                15 тонн
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </main>
+        <footer class="footer">
+            <div class="footer__container">
+                <p>АО "Мезенское дорожное управление" 
+                <script>
+                    var d = new Date();
+                    document.write(d.getFullYear());
+                </script>                    
+            </div>
+        </footer>
+    </div>
+    <script src="js/leaflet.js"></script>
+    <script src="js/KML.js"></script>
+    <script src="js/component.js"></script>
+    <script src="js/script-map-winter.js"></script>
+    <script src="js/vue.global.js"></script>
+<!--     <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+ -->    <script src="js/main.js"></script>
+</body>
+</html>
